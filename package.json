@@ -1,0 +1,10 @@
+{
+"name": "simple-validator",
+"author": "James Larsen <somesocks@gmail.com>",
+"homepage": "https://github.com/somesocks/simple-validator"
+"main": "simple-validator.js",
+"repository": {
+    "type": "git",
+    "url": "https://github.com/somesocks/simple-validator.git"
+  },
+}
