@@ -1,10 +1,23 @@
 {
-"name": "simple-validator",
-"author": "James Larsen <somesocks@gmail.com>",
-"homepage": "https://github.com/somesocks/simple-validator"
-"main": "simple-validator.js",
-"repository": {
+  "name": "simple-validator",
+  "version": "0.0.1",
+  "description": "A simple schema-based validator for Javascript objects",
+  "main": "simple-validator.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
     "type": "git",
-    "url": "https://github.com/somesocks/simple-validator.git"
-  }
+    "url": "git://github.com/somesocks/simple-validator.git"
+  },
+  "keywords": [
+    "validator",
+    "validation"
+  ],
+  "author": "James Larsen (somesocks@gmail.com)",
+  "license": "Apache v2",
+  "bugs": {
+    "url": "https://github.com/somesocks/simple-validator/issues"
+  },
+  "homepage": "https://github.com/somesocks/simple-validator"
 }
