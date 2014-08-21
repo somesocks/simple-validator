@@ -26,6 +26,10 @@ var isString = function(param){
 	return (typeof(param) === 'string') || (param instanceof String);
 };
 
+var isNumber = function(param){
+	return (typeof(param) === 'number' ) || (param instanceof Number);
+};
+
 var isBoolean = function(param){
 	return (typeof(param) === 'boolean') || (param instanceof Boolean);
 };
@@ -73,6 +77,7 @@ Validator.isNullOrUndefined = function(){return isNullOrUndefined;};
 Validator.isNotNullOrUndefined = function(){return isNotNullOrUndefined;};
 Validator.exists = isNotNullOrUndefined;
 Validator.isString = function(){return isString;};
+Validator.isNumber = function(){return isNumber;};
 Validator.isBoolean = function(){return isBoolean;};
 Validator.isFunction = function(){return isFunction};
 Validator.isObject = function(){return isObject;};
