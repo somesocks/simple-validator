@@ -4,7 +4,7 @@
   "description": "A simple schema-based validator for Javascript objects",
   "main": "simple-validator.js",
   "scripts": {
-    "test": "test.js"
+    "test": "node ./test.js"
   },
   "repository": {
     "type": "git",

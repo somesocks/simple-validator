@@ -12,7 +12,7 @@ var userSchema = {
 	}
 };
 
-var userValidator = new Validator(userSchema);
+var UserValidator = new Validator(userSchema);
 
 var userOne = {
 	name : "Anna",
@@ -61,8 +61,8 @@ var userFour = {
 	}
 };
 
-console.log(UserValidator(userOne));
-console.log(UserValidator(userTwo));
-console.log(UserValidator(userThree));
-console.log(UserValidator(userFour));
+console.log("Test 1 passed: " + (UserValidator(userOne) === true));
+console.log("Test 2 passed: " + (UserValidator(userTwo) === false));
+console.log("Test 3 passed: " + (UserValidator(userThree) === false));
+console.log("Test 4 passed: " + (UserValidator(userFour) === true));
 
