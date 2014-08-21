@@ -77,6 +77,25 @@ Validator.isBoolean = function(){return isBoolean;};
 Validator.isFunction = function(){return isFunction};
 Validator.isObject = function(){return isObject;};
 
+Validator.equals = function(value){
+	return function(param){
+		return (param === value);
+	};
+};
+
+Validator.isOneOf = function(){
+	var values = arguments;
+
+	return function(param){
+		for(var i=0;i<values.length;i++){
+			if(param === values[i]){
+				return true;
+			}
+		}
+		return false;
+	};
+};
+
 Validator.validate = validate;
 
 module.exports = Validator;
