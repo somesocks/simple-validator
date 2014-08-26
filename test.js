@@ -1,4 +1,4 @@
-var Validator = require("simple-validator");
+var Validator = require("./simple-validator");
 
 var userSchema = {
 	name : Validator.isString(),
@@ -61,8 +61,21 @@ var userFour = {
 	}
 };
 
+var userFive = {
+	name : "Anna",
+	age : 33,
+	gender : "",
+	living : true,
+	address : {
+		street : "Peachtree Street",
+		city : "Atlanta",
+		country: "USA"
+	}
+};
+
 console.log("Test 1 passed: " + (UserValidator(userOne) === true));
 console.log("Test 2 passed: " + (UserValidator(userTwo) === false));
 console.log("Test 3 passed: " + (UserValidator(userThree) === false));
 console.log("Test 4 passed: " + (UserValidator(userFour) === true));
+console.log("Test 5 passed: " + (UserValidator(userFive) === false));
 

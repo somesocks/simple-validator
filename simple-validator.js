@@ -101,6 +101,19 @@ Validator.isOneOf = function(){
 	};
 };
 
+Validator.isNoneOf = function(){
+	var values = arguments;
+
+	return function(param){
+		for(var i=0;i<values.length;i++){
+			if(param === values[i]){
+				return false;
+			}
+		}
+		return true;
+	};
+};
+
 Validator.validate = validate;
 
 module.exports = Validator;
