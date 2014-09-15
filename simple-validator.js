@@ -1,3 +1,7 @@
+var isKey = function(){
+	return true;
+};
+
 var isNull = function(param){
 	return (param === null);
 };
@@ -69,6 +73,7 @@ Validator = function(schema){
 	return validator;
 };
 
+Validator.isKey = function(){return isKey;};
 Validator.isNull = function(){return isNull;};
 Validator.isNotNull = function(){return isNotNull;};
 Validator.isUndefined = function(){return isUndefined};
