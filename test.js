@@ -1,14 +1,14 @@
 var Validator = require("./simple-validator");
 
 var userSchema = {
-	name : Validator.isString(),
-	age : Validator.isNumber(),
+	name : Validator.isString,
+	age : Validator.isNumber,
 	gender : Validator.isOneOf("male","female"),
-	living : Validator.isBoolean(),
+	living : Validator.isBoolean,
 	address : {
-		street : Validator.isString(),
-		city : Validator.isString(),
-		country : Validator.isString(),
+		street : Validator.isString,
+		city : Validator.isString,
+		country : Validator.isString,
 	}
 };
 

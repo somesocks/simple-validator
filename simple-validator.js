@@ -73,19 +73,19 @@ Validator = function(schema){
 	return validator;
 };
 
-Validator.isKey = function(){return isKey;};
-Validator.isNull = function(){return isNull;};
-Validator.isNotNull = function(){return isNotNull;};
-Validator.isUndefined = function(){return isUndefined};
-Validator.isNotUndefined = function(){return isNotUndefined};
-Validator.isNullOrUndefined = function(){return isNullOrUndefined;};
-Validator.isNotNullOrUndefined = function(){return isNotNullOrUndefined;};
+Validator.isKey = isKey;
+Validator.isNull = isNull;
+Validator.isNotNull = isNotNull;
+Validator.isUndefined = isUndefined;
+Validator.isNotUndefined = isNotUndefined;
+Validator.isNullOrUndefined = isNullOrUndefined;
+Validator.isNotNullOrUndefined = isNotNullOrUndefined;
 Validator.exists = isNotNullOrUndefined;
-Validator.isString = function(){return isString;};
-Validator.isNumber = function(){return isNumber;};
-Validator.isBoolean = function(){return isBoolean;};
-Validator.isFunction = function(){return isFunction};
-Validator.isObject = function(){return isObject;};
+Validator.isString = isString;
+Validator.isNumber = isNumber;
+Validator.isBoolean = isBoolean;
+Validator.isFunction = isFunction;
+Validator.isObject = isObject;
 
 Validator.equals = function(value){
 	return function(param){
