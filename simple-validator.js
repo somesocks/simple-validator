@@ -50,7 +50,7 @@ var isObject = function(param){
 var validate = function(schema,object){
 	if(isFunction(schema)){
 		return schema(object);
-	}else{
+	}else if(isObject(schema)){
 		if(!isObject(object)){
 			return false;
 		}
@@ -62,6 +62,8 @@ var validate = function(schema,object){
 		}
 
 		return true;
+	}else{
+		return object === schema;
 	}
 }
 
@@ -118,6 +120,19 @@ Validator.isNoneOf = function(){
 		return true;
 	};
 };
+
+Validator.matchesOneOf = function(){
+	var values = arguments;
+
+	return function(param){
+		for(var i=0;i<values.length;i++){
+			if(values[i](param)){
+				return true;
+			}
+		}
+		return false;
+	};
+}
 
 Validator.validate = validate;
 
