@@ -132,7 +132,13 @@ Validator.matchesOneOf = function(){
 		}
 		return false;
 	};
-}
+};
+
+Validator.optional = function(validator){	
+	return function(param){
+		return (param === null) || (param === undefined) || validator(param);
+	};
+};
 
 Validator.validate = validate;
 
