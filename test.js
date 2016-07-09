@@ -12,7 +12,7 @@ var userSchema = {
 	}
 };
 
-var UserValidator = new Validator(userSchema);
+var UserValidator = Validator.Object.matches(userSchema);
 
 var userOne = {
 	name : "Anna",

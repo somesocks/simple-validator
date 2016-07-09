@@ -1,122 +1,43 @@
-var isKey = function(){
-	return true;
-};
+var Validator = {};
 
-var isNull = function(param){
-	return (param === null);
-};
+Validator.isTruthy = function(v) { return !!v; };
 
-var isNotNull = function(param){
-	return !(param === null);
-};
+Validator.isFalsy = function(v) { return !v; };
 
-var isUndefined = function(param){
-	return (param === undefined);
-};
+Validator.isNull = function(v) { return v === null; };
 
-var isNotUndefined = function(param){
-	return !(param === undefined);
-};
+Validator.isNotNull = function(v) { return v !== null; };
 
-var isNullOrUndefined = function(param){
-	return isNull(param) || isUndefined(param);
-};
+Validator.isUndefined = function(v) { return v === undefined; };
 
-var isNotNullOrUndefined = function(param){
-	return !(isNull(param) || isUndefined(param));
-};
+Validator.isNotUndefined = function(v) { return v !== undefined; };
 
-var isString = function(param){
-	return (typeof(param) === 'string') || (param instanceof String);
-};
+Validator.isNullOrUndefined = function(v) { return v == null; };
 
-var isNumber = function(param){
-	return (typeof(param) === 'number' ) || (param instanceof Number);
-};
+Validator.isNotNullOrUndefined = function(v) { return v != null; };
 
-var isBoolean = function(param){
-	return (typeof(param) === 'boolean') || (param instanceof Boolean);
-};
+Validator.exists = Validator.isNotNullOrUndefined;
 
-var isFunction = function(param){
-	return (typeof(param) === 'function');
-};
-
-var isObject = function(param){
-	if(param === null){return false;}
-	return ((typeof(param)==='function') || (typeof(param)==='object'));
-};
-
-var validate = function(schema,object){
-	if(isFunction(schema)){
-		return schema(object);
-	}else if(isObject(schema)){
-		if(!isObject(object)){
-			return false;
-		}
-
-		for(key in schema){
-			var s = schema[key];
-			var o = object[key];
-			if(!validate(s,o)){return false;}
-		}
-
-		return true;
-	}else{
-		return object === schema;
-	}
-}
-
-Validator = function(schema){
-	var validator = function(obj){
-		return validate(schema,obj);
-	};
-
-	return validator;
-};
-
-Validator.isKey = isKey;
-Validator.isNull = isNull;
-Validator.isNotNull = isNotNull;
-Validator.isUndefined = isUndefined;
-Validator.isNotUndefined = isNotUndefined;
-Validator.isNullOrUndefined = isNullOrUndefined;
-Validator.isNotNullOrUndefined = isNotNullOrUndefined;
-Validator.exists = isNotNullOrUndefined;
-Validator.isString = isString;
-Validator.isNumber = isNumber;
-Validator.isBoolean = isBoolean;
-Validator.isFunction = isFunction;
-Validator.isObject = isObject;
-
-Validator.equals = function(value){
-	return function(param){
-		return (param === value);
+Validator.equals = function(w) {
+	return function(v) {
+		return v === w;
 	};
 };
 
 Validator.isOneOf = function(){
 	var values = arguments;
 
-	return function(param){
-		for(var i=0;i<values.length;i++){
-			if(param === values[i]){
-				return true;
-			}
-		}
+	return function(param) {
+		for(var i=0;i<values.length;i++) { if(param === values[i]){ return true; } }
 		return false;
 	};
 };
 
-Validator.isNoneOf = function(){
+Validator.isNoneOf = function() {
 	var values = arguments;
 
-	return function(param){
-		for(var i=0;i<values.length;i++){
-			if(param === values[i]){
-				return false;
-			}
-		}
+	return function(v) {
+		for(var i=0;i<values.length;i++) { if(v === values[i]) { return false; } }
 		return true;
 	};
 };
@@ -124,22 +45,164 @@ Validator.isNoneOf = function(){
 Validator.matchesOneOf = function(){
 	var values = arguments;
 
-	return function(param){
-		for(var i=0;i<values.length;i++){
-			if(values[i](param)){
-				return true;
-			}
-		}
+	return function(v){
+		for(var i=0;i<values.length;i++) { if(values[i](v)) { return true; } }
 		return false;
 	};
 };
 
-Validator.optional = function(validator){	
-	return function(param){
-		return (param === null) || (param === undefined) || validator(param);
+Validator.optional = function(validator) {	
+	return function(v){
+		return (v === null) || (v === undefined) || validator(v);
 	};
 };
 
-Validator.validate = validate;
+
+
+
+Validator.Boolean = {};
+
+Validator.Boolean.isBoolean = function(v) { return (typeof(v) === 'boolean') || (v instanceof Boolean); };
+
+Validator.Boolean.isTrue = function(v) { return v === true; };
+
+Validator.Boolean.isFalse = function(v) { return v === false; };
+
+
+
+Validator.Number = {};
+
+Validator.Number.isNumber = function(v) { return (typeof(v) === 'number') || (v instanceof Number); };
+
+Validator.Number.isZero = function(v) { return v === 0; };
+
+Validator.Number.isNonZero = function(v) { return v !== 0; };
+
+Validator.Number.isPositive = function(v) { return v > 0 };
+
+Validator.Number.isNegative = function(v) { return v < 0 };
+
+Validator.Number.isInteger = Number.isInteger || function(v) {
+	return typeof v === 'number' && 
+		isFinite(value) && 
+		Math.floor(value) === value;
+};
+
+
+
+
+Validator.String = {};
+
+Validator.String.isString = function(v) { return (typeof(v) === 'string') || (v instanceof String); };
+
+Validator.String.isEmpty = function(v) { return v === ''; };
+
+Validator.String.isNotEmpty = function(v) { return v !== ''; };
+
+Validator.String.isLength = function(len) {
+	return function(v) {
+		return Validator.isString(v) && v.length === 0;
+	};
+};
+
+Validator.String.matches = function(regex) {
+	return function(v) {
+		return Validator.isString(v) && regex.test(v);
+	};
+};
+
+var EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+Validator.String.isProbablyEmail = function(v) {
+	return Validator.isString(v) && EMAIL_REGEX.test(v);
+};
+
+var BASE64_REGEX = /[^-A-Za-z0-9+\/=]|=[^=]|={3,}$/;
+
+Validator.String.isProbablyBase64 = function(v) {
+	return Validator.isString(v) && BASE64_REGEX.test(v);
+};
+
+var DATA_URL_REGEX = /^\s*data:([a-z]+\/[a-z0-9-+.]+(;[a-z-]+=[a-z0-9-]+)?)?(;base64)?,([a-z0-9!$&',()*+;=\-._~:@\/?%\s]*)\s*$/i;
+
+Validator.String.isProbablyDataURL = function(v) {
+	return Validator.isString(v) && DATA_URL_REGEX.test(v);
+};
+
+
+
+
+
+Validator.Function = {};
+
+Validator.Function.isFunction = function (v) { return (typeof(v) === 'function'); };
+
+
+
+
+Validator.Object = {};
+
+Validator.Object.isObject = function (v) { return v !== null && ((typeof(v)==='function') || (typeof(v)==='object')); };
+
+var matchesSchema = function(schema, object) {
+	if(Validator.isFunction(schema)){
+		return schema(object);
+	}else if(Validator.isObject(schema)){
+		if(!Validator.isObject(object)){
+			return false;
+		}
+
+		for(key in schema){
+			var s = schema[key];
+			var o = object[key];
+			if(!matchesSchema(s,o)){return false;}
+		}
+
+		return true;
+	}else{
+		return object === schema;
+	}
+};
+
+Validator.Object.matches = function(schema) {
+	return function(object) {
+		return matchesSchema(schema, object);
+	};
+};
+
+
+Validator.Array = {};
+
+Validator.Array.isArray = Array.isArray || function(v) {
+    return Object.prototype.toString.call(v) === '[object Array]';
+};
+
+Validator.Array.isLength = function(len) {
+	return function(v){
+		return v.length === len;
+	};
+};
+
+Validator.Array.isArrayOf = function(validator) {
+	return function(v){
+		for(var i=0; i<v.length; i++){
+			if(!validator(v[i])) { return false; }
+		}
+		return true;
+	};
+};
+
+
+
+
+Validator.isBoolean = Validator.Boolean.isBoolean;
+Validator.isNumber = Validator.Number.isNumber;
+Validator.isString = Validator.String.isString;
+Validator.isFunction = Validator.Function.isFunction;
+Validator.isObject = Validator.Object.isObject;
+Validator.isArray = Validator.Array.isArray;
+
 
 module.exports = Validator;
+
+
