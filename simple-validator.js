@@ -152,7 +152,7 @@ var matchesSchema = function(schema, object) {
 			return false;
 		}
 
-		for(let key in schema){
+		for(var key in schema){
 			var s = schema[key];
 			var o = object[key];
 			if(!matchesSchema(s,o)){return false;}
