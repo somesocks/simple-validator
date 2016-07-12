@@ -1,4 +1,28 @@
-var Validator = {};
+var matchesSchema = function(schema, object) {
+	if(Validator.isFunction(schema)){
+		return schema(object);
+	}else if(Validator.isObject(schema)){
+		if(!Validator.isObject(object)){
+			return false;
+		}
+
+		for(var key in schema){
+			var s = schema[key];
+			var o = object[key];
+			if(!matchesSchema(s,o)){return false;}
+		}
+
+		return true;
+	}else{
+		return object === schema;
+	}
+};
+
+var Validator = function(schema) {
+	return function(object) {
+		return matchesSchema(schema, object);
+	};
+};
 
 Validator.isTruthy = function(v) { return !!v; };
 
@@ -164,12 +188,7 @@ var matchesSchema = function(schema, object) {
 	}
 };
 
-Validator.Object.matches = function(schema) {
-	return function(object) {
-		return matchesSchema(schema, object);
-	};
-};
-
+Validator.Object.matches = Validator;
 
 Validator.Array = {};
 
