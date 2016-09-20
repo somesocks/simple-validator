@@ -75,7 +75,7 @@ Validator.matchesOneOf = function(){
 	};
 };
 
-Validator.optional = function(validator) {	
+Validator.optional = function(validator) {
 	return function(v){
 		return (v === null) || (v === undefined) || validator(v);
 	};
@@ -107,8 +107,8 @@ Validator.Number.isPositive = function(v) { return v > 0 };
 Validator.Number.isNegative = function(v) { return v < 0 };
 
 Validator.Number.isInteger = Number.isInteger || function(v) {
-	return typeof v === 'number' && 
-		isFinite(value) && 
+	return typeof v === 'number' &&
+		isFinite(value) &&
 		Math.floor(value) === value;
 };
 
@@ -190,6 +190,33 @@ var matchesSchema = function(schema, object) {
 
 Validator.Object.matches = Validator;
 
+var matchesSchemaExact = function(schema, object) {
+	if(Validator.isFunction(schema)){
+		return schema(object);
+	}else if(Validator.isObject(schema)){
+		if(!Validator.isObject(object)){
+			return false;
+		}
+
+		for(var key in object){
+			var s = schema[key];
+			var o = object[key];
+			if(!matchesSchema(s,o)){return false;}
+		}
+
+		return true;
+	}else{
+		return object === schema;
+	}
+};
+
+Validator.Object.matchesExact = function(schema) {
+	return function(object) {
+		return matchesSchemaExact(schema, object);
+	};
+};
+
+
 Validator.Array = {};
 
 Validator.Array.isArray = Array.isArray || function(v) {
@@ -223,5 +250,3 @@ Validator.isArray = Validator.Array.isArray;
 
 
 module.exports = Validator;
-
-
