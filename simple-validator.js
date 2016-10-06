@@ -198,6 +198,12 @@ var matchesSchemaExact = function(schema, object) {
 			return false;
 		}
 
+		for(var key in schema){
+			var s = schema[key];
+			var o = object[key];
+			if(!matchesSchema(s,o)){return false;}
+		}
+
 		for(var key in object){
 			var s = schema[key];
 			var o = object[key];
