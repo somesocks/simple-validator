@@ -237,6 +237,7 @@ Validator.Array.isLength = function(len) {
 
 Validator.Array.isArrayOf = function(validator) {
 	return function(v){
+		if(!Validator.Array.isArray(v)) { return false; }		
 		for(var i=0; i<v.length; i++){
 			if(!validator(v[i])) { return false; }
 		}
