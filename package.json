@@ -1,11 +1,9 @@
 {
   "name": "simple-validator",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A simple schema-based validator for Javascript objects",
-  "main": "simple-validator.js",
-  "scripts": {
-    "test": "node ./test.js"
-  },
+  "main": "dist/simple-validator.js",
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git://github.com/somesocks/simple-validator.git"
@@ -19,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/somesocks/simple-validator/issues"
   },
-  "homepage": "https://github.com/somesocks/simple-validator"
+  "homepage": "https://github.com/somesocks/simple-validator",
+  "devDependencies": {
+    "mocha": "^3.2.0",
+    "webpack": "^1.14.0"
+  }
 }
