@@ -121,7 +121,7 @@ Validator.String.isString = function(v) { return (typeof(v) === 'string') || (v 
 
 Validator.String.isEmpty = function(v) { return v === ''; };
 
-Validator.String.isNotEmpty = function(v) { return v !== ''; };
+Validator.String.isNotEmpty = function(v) { return Validator.isString(v) && v !== ''; };
 
 Validator.String.isLength = function(len) {
 	return function(v) {
