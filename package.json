@@ -1,6 +1,6 @@
 {
   "name": "simple-validator",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "A simple schema-based validator for Javascript objects",
   "main": "dist/simple-validator.js",
   "scripts": {},

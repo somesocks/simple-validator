@@ -75,6 +75,16 @@ Validator.matchesOneOf = function(){
 	};
 };
 
+Validator.matchesAllOf = function(){
+	var values = arguments;
+
+	return function(v){
+		for(var i=0;i<values.length;i++) { if(!values[i](v)) { return false; } }
+		return true;
+	};
+};
+
+
 Validator.optional = function(validator) {
 	return function(v){
 		return (v === null) || (v === undefined) || validator(v);
